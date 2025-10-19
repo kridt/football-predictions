@@ -1,6 +1,7 @@
 import React from 'react';
+import { calculateFairOdds } from '../utils/oddsCalculator';
 
-const PredictionDisplay = ({ prediction }) => {
+const PredictionDisplay = ({ prediction, bookmakerOdds = null }) => {
   if (!prediction) {
     return (
       <div className="card p-6">
@@ -134,27 +135,51 @@ const PredictionDisplay = ({ prediction }) => {
           <div className="text-3xl font-bold text-success-600 dark:text-success-400 mb-1">
             {homeWin}%
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
             Home
           </div>
+          <div className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+            Fair Odds: <span className="font-semibold font-mono">{calculateFairOdds(homeWin)}</span>
+          </div>
+          {bookmakerOdds?.home && (
+            <div className="text-sm text-gray-800 dark:text-gray-200">
+              Bet365: <span className="font-bold font-mono text-success-600 dark:text-success-400">{bookmakerOdds.home.toFixed(2)}</span>
+            </div>
+          )}
         </div>
 
         <div className="card p-4 text-center hover:shadow-card-hover transition-shadow duration-300">
           <div className="text-3xl font-bold text-warning-600 dark:text-warning-400 mb-1">
             {draw}%
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
             Draw
           </div>
+          <div className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+            Fair Odds: <span className="font-semibold font-mono">{calculateFairOdds(draw)}</span>
+          </div>
+          {bookmakerOdds?.draw && (
+            <div className="text-sm text-gray-800 dark:text-gray-200">
+              Bet365: <span className="font-bold font-mono text-warning-600 dark:text-warning-400">{bookmakerOdds.draw.toFixed(2)}</span>
+            </div>
+          )}
         </div>
 
         <div className="card p-4 text-center hover:shadow-card-hover transition-shadow duration-300">
           <div className="text-3xl font-bold text-danger-600 dark:text-danger-400 mb-1">
             {awayWin}%
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+          <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
             Away
           </div>
+          <div className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+            Fair Odds: <span className="font-semibold font-mono">{calculateFairOdds(awayWin)}</span>
+          </div>
+          {bookmakerOdds?.away && (
+            <div className="text-sm text-gray-800 dark:text-gray-200">
+              Bet365: <span className="font-bold font-mono text-danger-600 dark:text-danger-400">{bookmakerOdds.away.toFixed(2)}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
